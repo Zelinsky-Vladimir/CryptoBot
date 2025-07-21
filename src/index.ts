@@ -4,6 +4,7 @@ import { config, validateConfig } from './config/config';
 import { PredictionScheduler } from './scheduler/scheduler';
 import { TelegramService } from './services/telegramService';
 import { CryptoAnalysisService } from './services/cryptoAnalysisService';
+import { startHealthServer } from './health';
 
 class CryptoPredictionBot {
   public scheduler: PredictionScheduler;
@@ -24,6 +25,9 @@ class CryptoPredictionBot {
       validateConfig();
       console.log('✅ Configuration validated');
 
+      // Start health check server for deployment platforms
+      startHealthServer();
+      
       // Send startup notification
       await this.telegramService.sendStartupMessage();
       console.log('✅ Startup notification sent');
